@@ -1,5 +1,3 @@
-declare SSH_USERNAME="$1"
-
 #Load /etc/environment so we have $SPARK_HOME set
 source /etc/environment
 
@@ -13,6 +11,3 @@ sudo sed -i 's/log4j.appender.DRFA.layout.ConversionPattern=.*/log4j.appender.DR
 sudo sed -i '/log4j.appender.DRFA.encoding=UTF-8/d' $SPARK_HOME/conf/log4j.properties
 sudo sed -i -e '$a\' $SPARK_HOME/conf/log4j.properties 
 echo 'log4j.appender.DRFA.encoding=UTF-8' >> $SPARK_HOME/conf/log4j.properties
-
-sudo mkdir /var/log/sparkapp/$SSH_USERNAME
-sudo chmod 777 /var/log/sparkapp/$SSH_USERNAME/
