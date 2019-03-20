@@ -14,4 +14,4 @@ sudo sed -i -e '$a\' $SPARK_HOME/conf/log4j.properties
 echo 'log4j.appender.DRFA.encoding=UTF-8' >> $SPARK_HOME/conf/log4j.properties
 
 sudo mkdir /var/log/sparkapp/$SSH_USERNAME
-sudo setfacl -R -m u:$SSH_USERNAME:rwx /var/log/sparkapp/$SSH_USERNAME/
+sudo chmod 777 /var/log/sparkapp/$SSH_USERNAME/
