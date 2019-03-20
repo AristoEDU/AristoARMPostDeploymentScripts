@@ -1,6 +1,9 @@
 #Load /etc/environment so we have $SPARK_HOME set
 source /etc/environment
 
+echo "About to make changes to the logger file"
+echo "The spark home about to be set is $SPARK_HOME"
+
 #overwrite the former log4j properties with the new one
 sudo sed -i "s/log4jspark.log.dir=.*/log4jspark.log.dir=\/var\/log\/sparkapp\/\${user.name}/g" $SPARK_HOME/conf/log4j.properties
 sudo sed -i "s/log4jspark.log.file=.*/log4jspark.log.file=\/var\/log\/sparkapp\/sanity_test/spark.log/g" $SPARK_HOME/conf/log4j.properties
