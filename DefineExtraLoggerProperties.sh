@@ -1,6 +1,12 @@
 #Load /etc/environment so we have $SPARK_HOME set
 source /etc/environment
 
+TIMESTAMP=$(date "+%Y%m%d-%H%M%S")
+
+if [ -f "$SPARK_HOME/conf/log4j.properties" ]; then
+   sudo mv $SPARK_HOME/conf/log4j.properties $SPARK_HOME/conf/log4j.properties_${TIMESTAMP}
+fi
+
 #overwrite the former log4j properties with the new one
 sudo sed -i "s/log4jspark.log.dir=.*/log4jspark.log.dir=\/var\/log\/sparkapp\/\${user.name}/g" $SPARK_HOME/conf/log4j.properties
 sudo sed -i "s/log4jspark.log.file=.*/log4jspark.log.file=spark.log/g" $SPARK_HOME/conf/log4j.properties
