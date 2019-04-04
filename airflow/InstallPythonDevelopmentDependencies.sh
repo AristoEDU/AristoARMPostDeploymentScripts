@@ -1,4 +1,3 @@
-#!/bin/bash
 declare SSH_USERNAME="$1"
 declare V_HOME="/home/$SSH_USERNAME"
 
