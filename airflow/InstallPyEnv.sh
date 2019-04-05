@@ -9,7 +9,6 @@ sed -i '/pyenv/d' $V_HOME/.bashrc
 
 echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $V_HOME/.bashrc
 echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $V_HOME/.bashrc
-echo 'eval "$(pyenv init -)"' >> $V_HOME/.bashrc
 
 export PYENV_ROOT="$V_HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -23,4 +22,5 @@ pyenv install 2.7.15
 pyenv versions
 
 pyenv global 2.7.15
-pyenv global
+which python 
+which pip
