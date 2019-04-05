@@ -14,6 +14,8 @@ export PYENV_ROOT="$V_HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+sudo chmod a+w $V_HOME/.pyenv
+
 pyenv global
 
 pyenv install 2.7.8
@@ -24,3 +26,5 @@ pyenv versions
 pyenv global 2.7.15
 which python 
 which pip
+
+SLUGIFY_USES_TEXT_UNIDECODE=yes pip install apache-airflow
