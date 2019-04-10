@@ -1,7 +1,9 @@
-sudo SLUGIFY_USES_TEXT_UNIDECODE=yes pip install apache-airflow
+SLUGIFY_USES_TEXT_UNIDECODE=yes pip install apache-airflow
 
-sudo pip install azure
+pip install azure
 
-sudo pip install celery
+pip install celery
 
-sudo apt-get install -y python-mysqldb
+sudo apt-get install libmysqlclient-dev
+
+pip install mysqlclient
