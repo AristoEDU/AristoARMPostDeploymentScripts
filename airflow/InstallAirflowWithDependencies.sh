@@ -12,7 +12,6 @@ pipdeptree==0.13.2
 pipreqs==0.4.9
 apache-airflow==1.10.2
 celery==4.3.0
-requests==2.21.0
 azure==4.0.0
 pylint==1.9.4
 )
