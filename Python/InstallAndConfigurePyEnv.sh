@@ -17,7 +17,7 @@ export PYENV_ROOT="$V_HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-sudo chmod a+w $V_HOME/.pyenv
+sudo chmod a+w -R $V_HOME/.pyenv
 
 pyenv install $PYTHON_VERSION
 
