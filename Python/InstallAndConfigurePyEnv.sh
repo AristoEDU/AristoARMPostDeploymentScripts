@@ -1,6 +1,5 @@
 declare SSH_USERNAME=$1
-declare PYTHON_VERSIONS=$2
-declare GLOBAL_PYTHON_VERSION=$3
+declare PYTHON_VERSION=$2
 
 declare V_HOME=/home/$SSH_USERNAME
   
@@ -20,9 +19,10 @@ eval "$(pyenv init -)"
 
 sudo chmod a+w $V_HOME/.pyenv
 
-for PYTHON_VERSION in "${PYTHON_VERSIONS[@]}"
-do
-    pvenv install $PYTHON_VERSION
-done
+pyenv install $PYTHON_VERSION
 
-pyenv global $GLOBAL_PYTHON_VERSION
+pyenv global $PYTHON_VERSION
+
+unset V_HOME
+unset SSH_USERNAME
+unset PYTHON_VERSION

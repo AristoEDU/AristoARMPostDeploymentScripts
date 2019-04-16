@@ -4,6 +4,6 @@ pip install azure
 
 pip install celery
 
-sudo apt-get install libmysqlclient-dev
+sudo apt-get -y install libmysqlclient-dev
 
 pip install mysqlclient
