@@ -8,9 +8,8 @@ declare RABBITMQ_VHOST=$7
 declare RABBITMQ_USERNAME=$8
 declare RABBITMQ_PASSWORD=$9
 declare RABBITMQ_HOSTNAME=${10}
-declare AIRFLOW_SMTP_PASSWORD=${11}
-declare AIRFLOW_SMTP_HOSTNAME=${12}
-declare ARISTO_SA_EMAIL=${13}
+declare SA_USERNAME=${11}
+declare SA_PASSWORD=${12}
 declare V_HOME="/home/$SSH_USERNAME"
 
 sed -i '/AIRFLOW_/d' $V_HOME/.profile
@@ -22,11 +21,9 @@ echo export AIRFLOW__CORE__BASE_LOG_FOLDER=$V_HOME/AristoAirflow/logs >> $V_HOME
 echo export AIRFLOW__CORE__PLUGINS_FOLDER=$V_HOME/AristoAirflow/plugins >> $V_HOME/.profile
 echo export AIRFLOW__SCHEDULER__CHILD_PROCESS_LOG_DIRECTORY=$V_HOME/AristoAirflow/logs/scheduler >> $V_HOME/.profile
 
-echo export AIRFLOW__SMTP__SMTP_PORT=587 >> $V_HOME/.profile
-echo export AIRFLOW__SMTP__SMTP_HOST=$AIRFLOW_SMTP_HOSTNAME >> $V_HOME/.profile
-echo export AIRFLOW__SMTP__SMTP_USER=$ARISTO_SA_EMAIL >> $V_HOME/.profile
-echo export AIRFLOW__SMTP__SMTP_MAIL_FROM=$ARISTO_SA_EMAIl >> $V_HOME/.profile
-echo export AIRFLOW__SMTP__SMTP_PASSWORD=$AIRFLOW_SMTP_PASSWORD >> $V_HOME/.profile
+echo export AIRFLOW__SMTP__SMTP_USER=${SA_USERNAME}@microsoft.com >> $V_HOME/.profile
+echo export AIRFLOW__SMTP__SMTP_MAIL_FROM=${SA_USERNAME}@microsoft.com >> $V_HOME/.profile
+echo export AIRFLOW__SMTP__SMTP_PASSWORD=$SA_PASSWORD >> $V_HOME/.profile
 
 declare MYSQL_SERVER_LOGIN="$MYSQL_SERVER_USERNAME:$MYSQL_SERVER_PASSWORD"
 echo export AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+mysqldb://$MYSQL_SERVER_LOGIN@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE >> $V_HOME/.profile
@@ -44,6 +41,5 @@ unset RABBITMQ_VHOST
 unset RABBITMQ_USERNAME
 unset RABBITMQ_PASSWORD
 unset RABBITMQ_HOSTNAME
-unset AIRFLOW_SMTP_PASSWORD
-unset AIRFLOW_SMTP_HOSTNAME
-unset ARISTO_SA_EMAIL
+unset SA_USERNAME
+unset SA_PASSWORD
