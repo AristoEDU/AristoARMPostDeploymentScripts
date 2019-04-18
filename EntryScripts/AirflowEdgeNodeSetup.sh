@@ -13,11 +13,11 @@ declare SA_USERNAME=${12}
 declare SA_PASSWORD=${13}
 
 # Setup the python environment
-bash InstallAndConfigurePyEnv.sh $SSH_USERNAME $PYTHON_VERSION
+source InstallAndConfigurePyEnv.sh $SSH_USERNAME $PYTHON_VERSION
 
 # Install airflow on the python environment
-bash InstallAirflowWithDependencies.sh
+source InstallAirflowWithDependencies.sh
 
 # Define the environment variables needed to connect with the other resources in our 
 # Celery executor architecture
-bash DefineAirflowEnvironmentVariables.sh $SSH_USERNAME $AIRFLOW_DATABASE $MYSQL_SERVER_USERNAME $MYSQL_SERVER_PASSWORD $MYSQL_SERVER_HOSTNAME $RABBITMQ_QUEUENAME $RABBITMQ_VHOST $RABBITMQ_USERNAME $RABBITMQ_PASSWORD $RABBITMQ_HOSTNAME $SA_USERNAME $SA_PASSWORD
+source DefineAirflowEnvironmentVariables.sh $SSH_USERNAME $AIRFLOW_DATABASE $MYSQL_SERVER_USERNAME $MYSQL_SERVER_PASSWORD $MYSQL_SERVER_HOSTNAME $RABBITMQ_QUEUENAME $RABBITMQ_VHOST $RABBITMQ_USERNAME $RABBITMQ_PASSWORD $RABBITMQ_HOSTNAME $SA_USERNAME $SA_PASSWORD
