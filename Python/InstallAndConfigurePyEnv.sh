@@ -6,6 +6,9 @@ declare V_HOME=/home/$SSH_USERNAME
 sudo apt-get install -y git python-pip make build-essential libssl1.0-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
 
 if [ ! -d $V_HOME/.pyenv ]; then
+    echo "************************************************"
+    echo "Cloning the github repository"
+    echo "***********************************************"
     git clone https://github.com/yyuu/pyenv.git $V_HOME/.pyenv
 fi
 
@@ -24,6 +27,9 @@ sudo chmod a+w -R $V_HOME/.pyenv
 sudo chmod a+r -R $V_HOME/.pyenv
 
 if [ ! -d $V_HOME/.pyenv/versions/$PYTHON_VERSION ]; then
+    echo "********************************************"
+    echo "Installing the python version"
+    echo "********************************************"
     pyenv install $PYTHON_VERSION
 fi
 
