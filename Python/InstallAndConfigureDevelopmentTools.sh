@@ -1,14 +1,12 @@
 declare SSH_USERNAME=$1
 declare PYTHON_VERSION=$2
 
-declare V_HOME=/home/$SSH_USERNAME
-  
+# Install PyEnv Dependencies
 sudo apt-get install -y git python-pip make build-essential libssl1.0-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
 
+# Install PyEnv
+declare V_HOME=/home/$SSH_USERNAME
 if [ ! -d $V_HOME/.pyenv ]; then
-    echo "************************************************"
-    echo "Cloning the github repository"
-    echo "***********************************************"
     git clone https://github.com/yyuu/pyenv.git $V_HOME/.pyenv
 fi
 
@@ -25,16 +23,27 @@ eval "$(pyenv init -)"
 
 sudo chmod a+w -R $V_HOME/.pyenv
 sudo chmod a+r -R $V_HOME/.pyenv
+unset V_HOME
 
+# Configure PyEnv to make global the passed in version
 if [ ! -d $V_HOME/.pyenv/versions/$PYTHON_VERSION ]; then
-    echo "********************************************"
-    echo "Installing the python version"
-    echo "********************************************"
     pyenv install $PYTHON_VERSION
 fi
 
 pyenv global $PYTHON_VERSION
 
-unset V_HOME
+# Given the PyEnv has been setup, now install other python tools
+declare -a PIP_INSTALL=(
+pipdeptree==0.13.2
+pipreqs==0.4.9
+pylint==1.9.4
+)
+
+for package in ${PIP_INSTALL[@]}; do
+    echo "Installing ${package}..."
+    pip install $package
+done
+unset PIP_INSTALL
+
 unset PYTHON_VERSION
 unset SSH_USERNAME
