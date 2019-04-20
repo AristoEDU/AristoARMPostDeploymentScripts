@@ -13,5 +13,6 @@ sudo ACCEPT_EULA=Y apt-get -y install mssql-tools unixodbc-dev
 sed -i '/mssql-tools\/bin/d' $V_HOME/.bashrc
 echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> $V_HOME/.bashrc
 
-unset SSH_USERNAME
 unset V_HOME
+
+unset SSH_USERNAME
