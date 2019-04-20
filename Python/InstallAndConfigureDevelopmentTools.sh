@@ -6,6 +6,7 @@ sudo apt-get install -y git python-pip make build-essential libssl1.0-dev zlib1g
 
 # Install PyEnv
 declare V_HOME=/home/$SSH_USERNAME
+
 if [ ! -d $V_HOME/.pyenv ]; then
     git clone https://github.com/yyuu/pyenv.git $V_HOME/.pyenv
 fi
@@ -23,7 +24,6 @@ eval "$(pyenv init -)"
 
 sudo chmod a+w -R $V_HOME/.pyenv
 sudo chmod a+r -R $V_HOME/.pyenv
-unset V_HOME
 
 # Configure PyEnv to make global the passed in version
 if [ ! -d $V_HOME/.pyenv/versions/$PYTHON_VERSION ]; then
@@ -43,7 +43,8 @@ for package in ${PIP_INSTALL[@]}; do
     echo "Installing ${package}..."
     pip install $package
 done
-unset PIP_INSTALL
 
+unset PIP_INSTALL
+unset V_HOME
 unset PYTHON_VERSION
 unset SSH_USERNAME
