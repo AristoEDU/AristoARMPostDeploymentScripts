@@ -28,6 +28,8 @@ sudo chmod a+r -R $V_HOME/.pyenv
 # Configure PyEnv to make global the passed in version
 if [ ! -d $V_HOME/.pyenv/versions/$PYTHON_VERSION ]; then
     pyenv install $PYTHON_VERSION
+else
+    echo "What the heck am I doing here?"
 fi
 
 pyenv global $PYTHON_VERSION
