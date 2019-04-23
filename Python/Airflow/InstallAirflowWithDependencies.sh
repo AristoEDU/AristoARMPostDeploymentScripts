@@ -1,7 +1,5 @@
 SLUGIFY_USES_TEXT_UNIDECODE=yes pip install apache-airflow==1.10.2
 
-pip install azure==4.0.0
-
 pip install celery==4.3.0
 
 sudo apt-get -y install libmysqlclient-dev
