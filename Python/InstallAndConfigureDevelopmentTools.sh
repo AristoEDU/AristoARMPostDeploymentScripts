@@ -1,6 +1,8 @@
 declare SSH_USERNAME=$1
 declare PYTHON_VERSION=$2
 
+sudo apt-get update
+
 # Install PyEnv Dependencies
 sudo apt-get install -y git python-pip make build-essential libssl1.0-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev
 
