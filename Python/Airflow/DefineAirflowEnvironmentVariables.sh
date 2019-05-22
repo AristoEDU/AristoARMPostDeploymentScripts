@@ -15,24 +15,19 @@ declare V_HOME="/home/$SSH_USERNAME"
 sed -i '/AIRFLOW_/d' $V_HOME/.profile
 
 echo export AIRFLOW_HOME=$V_HOME/AristoAirflow >> $V_HOME/.profile
-echo export AIRFLOW__CORE__AIRFLOW_HOME=$V_HOME/AristoAirflow >> $V_HOME/.profile
-echo export AIRFLOW__CORE__DAGS_FOLDER=$V_HOME/AristoAirflow/dags >> $V_HOME/.profile
-echo export AIRFLOW__CORE__BASE_LOG_FOLDER=$V_HOME/AristoAirflow/logs >> $V_HOME/.profile
-echo export AIRFLOW__CORE__PLUGINS_FOLDER=$V_HOME/AristoAirflow/plugins >> $V_HOME/.profile
-echo export AIRFLOW__SCHEDULER__CHILD_PROCESS_LOG_DIRECTORY=$V_HOME/AristoAirflow/logs/scheduler >> $V_HOME/.profile
 
-echo export AIRFLOW__SMTP__SMTP_USER=$SA_EMAIL >> $V_HOME/.profile
-echo export AIRFLOW__SMTP__SMTP_MAIL_FROM=$SA_EMAIL >> $V_HOME/.profile
 echo export AIRFLOW__SMTP__SMTP_PASSWORD=$SA_PASSWORD >> $V_HOME/.profile
 
-declare MYSQL_SERVER_LOGIN="$MYSQL_SERVER_USERNAME:$MYSQL_SERVER_PASSWORD"
-echo export AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+mysqldb://$MYSQL_SERVER_LOGIN@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE >> $V_HOME/.profile
-echo export AIRFLOW__CELERY__RESULT_BACKEND=db+mysql://$MYSQL_SERVER_LOGIN@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE >> $V_HOME/.profile
+echo export ENV_DB_USER=${MYSQL_SERVER_USERNAME} >> $V_HOME/.profile
+echo export ENV_DB_PASS=${MYSQL_SERVER_PASSWORD} >> $V_HOME/.profile
+echo export MYSQL_SERVER_HOSTNAME=${MYSQL_SERVER_HOSTNAME} >> $V_HOME/.profile
+echo 'export ENV_DB_HOST=mysql://${MYSQL_SERVER_HOSTNAME}' >> $V_HOME/.profile
+echo export ENV_DB_URL_PARAMS="edu_analytics?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" >> $V_HOME/.profile
+echo 'export AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+mysqldb://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE' >> $V_HOME/.profile
+echo 'export AIRFLOW__CELERY__RESULT_BACKEND=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE' >> $V_HOME/.profile
 echo export AIRFLOW__CELERY__DEFAULT_QUEUE=$RABBITMQ_QUEUENAME >> $V_HOME/.profile
 echo export AIRFLOW__CELERY__BROKER_URL=amqp://$RABBITMQ_USERNAME:$RABBITMQ_PASSWORD@$RABBITMQ_HOSTNAME:5672/$RABBITMQ_VHOST >> $V_HOME/.profile
 
-
-unset MYSQL_SERVER_LOGIN
 unset V_HOME
 
 unset SSH_USERNAME
