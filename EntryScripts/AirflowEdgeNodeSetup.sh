@@ -13,6 +13,7 @@ declare P_SA_EMAIL=${12}
 declare P_SA_PASSWORD=${13}
 declare P_AIRFLOW_DATABASE_BACKFILL=${14}
 declare P_DAGS_CORE_FOLDER=${15}
+decalre P_ENVIRONMENT=${16}
 
 # Setup the python environment
 source InstallAndConfigureDevelopmentTools.sh $P_SSH_USERNAME $P_PYTHON_VERSION
@@ -23,6 +24,8 @@ source InstallAirflowWithDependencies.sh
 # Define the environment variables needed to connect with the other resources in our 
 # Celery executor architecture
 source DefineAirflowEnvironmentVariables.sh $P_SSH_USERNAME $P_AIRFLOW_DATABASE $P_MYSQL_SERVER_USERNAME $P_MYSQL_SERVER_PASSWORD $P_MYSQL_SERVER_HOSTNAME $P_RABBITMQ_QUEUENAME $P_RABBITMQ_VHOST $P_RABBITMQ_USERNAME $P_RABBITMQ_PASSWORD $P_RABBITMQ_HOSTNAME $P_SA_EMAIL $P_SA_PASSWORD $P_AIRFLOW_DATABASE_BACKFILL $P_DAGS_CORE_FOLDER
+
+source InitializeAirflow.sh $P_ENVIRONMENT
 
 unset P_SSH_USERNAME
 unset P_PYTHON_VERSION
