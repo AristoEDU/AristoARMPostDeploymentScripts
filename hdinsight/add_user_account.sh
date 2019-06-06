@@ -1,5 +1,6 @@
 #!/bin/bash
 
+###TODO: Generate password and save to keyvault
 DEFAULT_PASS="Wer34#fT983TgJ08"
 NEW_USER=$1
 CURR_PATH=`pwd`
