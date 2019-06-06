@@ -1,23 +1,47 @@
 #!/bin/bash
 
-###TODO: Generate password and save to keyvault
-DEFAULT_PASS="Wer34#fT983TgJ08"
 NEW_USER=$1
 CURR_PATH=`pwd`
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
+keyVaultName=EduUserPasswords
+DEFAULT_PASS="!edu_"$(uuid)
+SED=sed
+
+function savePassword(){
+  clusterName=$(hostname)
+  keyName="${clusterName}-${NEW_USER}-pw"
+
+  res_key_exists=$(az keyvault secret show --vault-name ${keyVaultName} --name ${keyName} | jq '.value')
+  if [[ ! -z ${res_key_exists} ]]; then
+     echo "ERROR: The password has been already created in '${keyVaultName}' Key Vault, secret '${keyName}'."
+     echo "Make sure it is not a duplicated request."
+     exit -4
+  else
+     echo "Creating '${keyName}' secret ..."
+  fi
+
+  res_secret=$(az keyvault secret set --vault-name ${keyVaultName} --name ${keyName} --value ${DEFAULT_PASS})
+  res_sec_value=$(echo ${res_secret} | jq '.value' | $SED 's/\"//g')
+
+  if [[ $res_sec_value == ${DEFAULT_PASS} ]]; then
+     echo "The Password has been saved in '${keyVaultName}' Key Vault as '${keyName}' secret..."
+  else
+     echo "ERROR: Can't save the password in '${keyVaultName}'"
+     exit -5
+  fi
+}
 
 usage(){
-   echo "./add_user_account.sh NEW_USER NEW_USER_PASSWORD(OPTIONAL)"  
+   echo "./add_user_account.sh NEW_USER"  
    exit
 }
 
-if [ $# == 2 ]; then
-    DEFAULT_PASS=$2
-elif [ $# == 1 ]; then
-    echo "The password has not been supplied. The default password will be set."
+if [ $# == 1 ]; then
+    savePassword
 else
     usage
 fi 
+
 
 res=$(groups | grep sshuser)
 if [ "$res" == "" ]; then
