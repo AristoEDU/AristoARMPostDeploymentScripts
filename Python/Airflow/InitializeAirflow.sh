@@ -1,6 +1,7 @@
 declare ENVIRONMENT=$1
 declare GIT_USER=$2
 declare GIT_PASSWORD=$3
+declare SSH_USER=$4
 
 set -xe
 myemail="${GIT_USER}@microsoft.com"
@@ -10,8 +11,8 @@ gitrepo_ssh="git@github.com:AristoEDU/AristoAirflow.git"
 gitrepo_https="https://github.com/${GIT_USER}/AristoEDU/AristoAirflow.git"
 
 #Generating SSH key:
-ssh-keygen -f "${HOME}/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
-sslpub="$(cat ${HOME}/.ssh/id_rsa.pub |tail -1)"
+ssh-keygen -f "/home/${SSH_USER}/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
+sslpub="$(cat /home/${SSH_USER}/.ssh/id_rsa.pub |tail -1)"
 
 git_api_addkey="https://api.$(echo ${gitrepo_https} |cut -d'/' -f3)/user/keys"
 
