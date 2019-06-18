@@ -10,8 +10,8 @@ declare RABBITMQ_PASSWORD=$9
 declare RABBITMQ_HOSTNAME=${10}
 declare SA_EMAIL=${11}
 declare SA_PASSWORD=${12}
-declare AIRFLOW_DATABASE_BACKFILL=$13
-declare DAGS_CORE_FOLDER=$14
+declare AIRFLOW_DATABASE_BACKFILL=${13}
+declare DAGS_CORE_FOLDER=${14}
 
 declare V_HOME="/home/$SSH_USERNAME"
 sed -i '/AIRFLOW_/d' $V_HOME/.profile
@@ -37,7 +37,7 @@ echo 'export AIRFLOW__SMTP__SMTP_MAIL_FROM=${ENV_SMTP_MAIL}' >> $V_HOME/.profile
 
 echo 'export AIRFLOW_CONN_SCHEDULED_DB=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE' >> $V_HOME/.profile
 echo 'export AIRFLOW_CONN_BACKFILL_DB=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/$AIRFLOW_DATABASE_BACKFILL' >> $V_HOME/.profile
-echo 'export AIRFLOW_CONN_CONFIG_DB=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/edu_analytics'>> $V_HOME/.profile
+echo 'export AIRFLOW_CONN_CONFIG_DB=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@$MYSQL_SERVER_HOSTNAME:3306/edu_analytics' >> $V_HOME/.profile
 
 echo export AIRFLOW__CORE__DAGS_FOLDER=/home/aristo/AristoAirflow/$DAGS_CORE_FOLDER >> $V_HOME/.profile
 

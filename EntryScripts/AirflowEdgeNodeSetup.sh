@@ -13,7 +13,7 @@ declare P_SA_EMAIL=${12}
 declare P_SA_PASSWORD=${13}
 declare P_AIRFLOW_DATABASE_BACKFILL=${14}
 declare P_DAGS_CORE_FOLDER=${15}
-decalre P_ENVIRONMENT=${16}
+declare P_ENVIRONMENT=${16}
 
 # Setup the python environment
 source InstallAndConfigureDevelopmentTools.sh $P_SSH_USERNAME $P_PYTHON_VERSION
