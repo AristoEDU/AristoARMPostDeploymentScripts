@@ -25,8 +25,8 @@ echo export ENV_DB_USER=${MYSQL_SERVER_USERNAME} >> $V_HOME/.profile
 echo export ENV_DB_PASS=${MYSQL_SERVER_PASSWORD} >> $V_HOME/.profile
 echo export ENV_DB_HOSTNAME=${MYSQL_SERVER_HOSTNAME} >> $V_HOME/.profile
 echo 'export ENV_DB_HOST=mysql://${ENV_DB_HOSTNAME}' >> $V_HOME/.profile
-echo export AIRFLOW_DB_SCHEDULED=${AIRFLOW_DATABASE}
-echo export AIRFLOW_DB_BACKFILL=${AIRFLOW_DATABASE_BACKFILL}
+echo export AIRFLOW_DB_SCHEDULED=${AIRFLOW_DATABASE} >> $V_HOME/.profile
+echo export AIRFLOW_DB_BACKFILL=${AIRFLOW_DATABASE_BACKFILL} >> $V_HOME/.profile
 echo export ENV_DB_URL_PARAMS="edu_analytics?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC" >> $V_HOME/.profile
 echo 'export AIRFLOW__CORE__SQL_ALCHEMY_CONN=mysql+mysqldb://${ENV_DB_USER}:${ENV_DB_PASS}@${ENV_DB_HOSTNAME}:3306/${AIRFLOW_DB_SCHEDULED}' >> $V_HOME/.profile
 echo 'export AIRFLOW__CELERY__RESULT_BACKEND=db+mysql://${ENV_DB_USER}:${ENV_DB_PASS}@${ENV_DB_HOSTNAME}:3306/${AIRFLOW_DB_SCHEDULED}' >> $V_HOME/.profile

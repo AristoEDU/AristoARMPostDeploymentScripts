@@ -40,12 +40,19 @@ cd /home/$SSH_USER/AristoAirflow
 airflow initdb
 
 if [ "$ENVIRONMENT" = "Prod" ]; then
-  airflow variables --i .vars/AristoVariables.var
+  airflow variables --i ./vars/AristoVariables.var
 else
-  airflow variables --i .vars/AristoVariables-Dev.var
+  airflow variables --i ./vars/AristoVariables-Dev.var
 fi
 
 airflow initdb
+
+# Make directory and files for logging so that the utility script can be run
+# without additional work.
+mkdir ./logs/webserver
+mkdir ./logs/worker
+touch ./logs/webserver/webserver.log
+touch ./logs/webserver/webserver.log
 
 unset ENVIRONMENT
 unset GIT_USER
