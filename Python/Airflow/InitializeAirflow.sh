@@ -16,8 +16,8 @@ gitrepo_ssh="git@github.com:AristoEDU/AristoAirflow.git"
 gitrepo_https="https://github.com/$GIT_USER/AristoEDU/AristoAirflow.git"
 
 #Generating SSH key:
-ssh-keygen -f "~/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
-sslpub="$(cat ~/.ssh/id_rsa.pub |tail -1)"
+ssh-keygen -f "/root/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
+sslpub="$(cat /root/.ssh/id_rsa.pub |tail -1)"
 
 git_api_addkey="https://api.$(echo ${gitrepo_https} |cut -d'/' -f3)/user/keys"
 
