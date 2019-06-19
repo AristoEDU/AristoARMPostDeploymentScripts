@@ -4,6 +4,11 @@ declare GIT_PASSWORD=$3
 declare SSH_USER=$4
 
 set -xe
+
+ssh_user_home=/home/$SSH_USER
+
+cd $ssh_user_home
+
 myemail="$GIT_USER@microsoft.com"
 
 #We'll use the HTTPS to push a ssh key to git, SSH for pull/push configuration
@@ -29,7 +34,7 @@ ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 # Clone the repo
 git clone $gitrepo_ssh
 
-cd ~/AristoAirflow
+cd $ssh_user_home/AristoAirflow
 
 # We can't seem to import the variables unless the db is initialized but
 # airflow imports the dags as part of the initdb process, causing
@@ -47,3 +52,4 @@ airflow initdb
 unset ENVIRONMENT
 unset GIT_USER
 unset GIT_PASSWORD
+unset SSH_USER
