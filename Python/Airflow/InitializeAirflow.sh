@@ -5,9 +5,7 @@ declare SSH_USER=$4
 
 set -xe
 
-ssh_user_home=/home/$SSH_USER
-
-cd $ssh_user_home
+cd ~
 
 myemail="$GIT_USER@microsoft.com"
 
@@ -16,8 +14,8 @@ gitrepo_ssh="git@github.com:AristoEDU/AristoAirflow.git"
 gitrepo_https="https://github.com/$GIT_USER/AristoEDU/AristoAirflow.git"
 
 #Generating SSH key:
-ssh-keygen -f "/root/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
-sslpub="$(cat /root/.ssh/id_rsa.pub |tail -1)"
+ssh-keygen -f "/home/$SSH_USER/.ssh/id_rsa" -t rsa -b 4096 -C "${myemail}" -N ''
+sslpub="$(cat ~/.ssh/id_rsa.pub |tail -1)"
 
 git_api_addkey="https://api.$(echo ${gitrepo_https} |cut -d'/' -f3)/user/keys"
 
@@ -32,16 +30,16 @@ ssh-keyscan -H 192.30.253.113 >> ~/.ssh/known_hosts
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 # Clone the repo
-git clone $gitrepo_ssh
+git clone --single-branch --branch master $gitrepo_ssh
 
-cd $ssh_user_home/AristoAirflow
+cd ~/AristoAirflow
 
 # We can't seem to import the variables unless the db is initialized but
 # airflow imports the dags as part of the initdb process, causing
 # an error so we have to init, import and init again.
 airflow initdb
 
-if [ "$ENVIRONMENT" = "Prod" ]
+if [ "$ENVIRONMENT" = "Prod" ]; then
   airflow variables --i ./AristoVariables.var
 else
   airflow variables --i ./AristoVariables-Dev.var
