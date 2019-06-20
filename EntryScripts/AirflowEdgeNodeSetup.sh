@@ -28,7 +28,8 @@ source InstallAirflowWithDependencies.sh
 source DefineAirflowEnvironmentVariables.sh $P_SSH_USERNAME $P_AIRFLOW_DATABASE $P_MYSQL_SERVER_USERNAME $P_MYSQL_SERVER_PASSWORD $P_MYSQL_SERVER_HOSTNAME $P_RABBITMQ_QUEUENAME $P_RABBITMQ_VHOST $P_RABBITMQ_USERNAME $P_RABBITMQ_PASSWORD $P_RABBITMQ_HOSTNAME $P_SA_EMAIL $P_SA_PASSWORD $P_AIRFLOW_DATABASE_BACKFILL $P_DAGS_CORE_FOLDER
 
 # Copy script over to SSH_USER home and open read/write
-cp /var/lib/waagent/Microsoft.OSTCExtensions.CustomScriptForLinux-1.5.4/download/0/InitializeAirflow.sh /home/$P_SSH_USERNAME/
+script_directory=`ls -ld /var/lib/waagent/* | grep ^d | awk '{print $9}' | grep Microsoft.OSTCExtensions.CustomScriptForLinux-*`
+cp $script_directory/download/0/InitializeAirflow.sh /home/$P_SSH_USERNAME/
 
 chmod +777 /home/$P_SSH_USERNAME
 
