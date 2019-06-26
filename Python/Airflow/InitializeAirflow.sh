@@ -31,6 +31,16 @@ curl -u "$GIT_USER:$GIT_PASSWORD" -X POST -d "{\"title\":\"$git_ssl_keyname\",\"
 ssh-keyscan -H 192.30.253.113 >> $temp_home/.ssh/known_hosts
 ssh-keyscan -H github.com >> $temp_home/.ssh/known_hosts
 
+# temporary point to empty dag folder
+mkdir ~/dummy_dags
+AIRFLOW__CORE__DAGS_FOLDER_TEMP=${AIRFLOW__CORE__DAGS_FOLDER}
+export AIRFLOW__CORE__DAGS_FOLDER=~/dummy_dags
+
+# initialize DB - AristoAirflow schema
+airflow initdb
+
+export AIRFLOW__CORE__DAGS_FOLDER=${AIRFLOW__CORE__DAGS_FOLDER_TEMP}
+
 # Clone the repo
 git clone --single-branch --branch master $gitrepo_ssh
 
@@ -47,14 +57,14 @@ else
   airflow variables --i ./vars/AristoVariables-Dev.var
 fi
 
-airflow initdb
-
 # Make directory and files for logging so that the utility script can be run
 # without additional work to start airflow.
 mkdir ./logs/webserver
 mkdir ./logs/worker
 touch ./logs/webserver/webserver.log
 touch ./logs/webserver/worker.log
+
+rm -fr ~/dummy_dags
 
 unset ENVIRONMENT
 unset GIT_USER
