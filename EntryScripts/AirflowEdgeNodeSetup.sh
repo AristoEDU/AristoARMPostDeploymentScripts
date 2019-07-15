@@ -16,6 +16,8 @@ declare P_DAGS_CORE_FOLDER=${15}
 declare P_ENVIRONMENT=${16}
 declare P_GITUSER=${17}
 declare P_GITPASSWORD=${18}
+declare P_LOG_ANALYTICS_WORKSPACE_ID=${19}
+declare P_LOG_ANALYTICS_WORKSPACE_SHARED_KEY=${20}
 
 # Setup the python environment
 source InstallAndConfigureDevelopmentTools.sh $P_SSH_USERNAME $P_PYTHON_VERSION
@@ -25,7 +27,7 @@ source InstallAirflowWithDependencies.sh
 
 # Define the environment variables needed to connect with the other resources in our 
 # Celery executor architecture
-source DefineAirflowEnvironmentVariables.sh $P_SSH_USERNAME $P_AIRFLOW_DATABASE $P_MYSQL_SERVER_USERNAME $P_MYSQL_SERVER_PASSWORD $P_MYSQL_SERVER_HOSTNAME $P_RABBITMQ_QUEUENAME $P_RABBITMQ_VHOST $P_RABBITMQ_USERNAME $P_RABBITMQ_PASSWORD $P_RABBITMQ_HOSTNAME $P_SA_EMAIL $P_SA_PASSWORD $P_AIRFLOW_DATABASE_BACKFILL $P_DAGS_CORE_FOLDER
+source DefineAirflowEnvironmentVariables.sh $P_SSH_USERNAME $P_AIRFLOW_DATABASE $P_MYSQL_SERVER_USERNAME $P_MYSQL_SERVER_PASSWORD $P_MYSQL_SERVER_HOSTNAME $P_RABBITMQ_QUEUENAME $P_RABBITMQ_VHOST $P_RABBITMQ_USERNAME $P_RABBITMQ_PASSWORD $P_RABBITMQ_HOSTNAME $P_SA_EMAIL $P_SA_PASSWORD $P_AIRFLOW_DATABASE_BACKFILL $P_DAGS_CORE_FOLDER $P_LOG_ANALYTICS_WORKSPACE_ID $P_LOG_ANALYTICS_WORKSPACE_SHARED_KEY
 
 # Copy script over to SSH_USER home and open read/write
 script_directory=`ls -ld /var/lib/waagent/* | grep ^d | awk '{print $9}' | grep Microsoft.OSTCExtensions.CustomScriptForLinux-*`
@@ -53,3 +55,5 @@ unset P_DAGS_CORE_FOLDER
 unset P_ENVIRONMENT
 unset P_GITUSER
 unset P_GITPASSWORD
+unset P_LOG_ANALYTICS_WORKSPACE_ID
+unset P_LOG_ANALYTICS_WORKSPACE_SHARED_KEY
