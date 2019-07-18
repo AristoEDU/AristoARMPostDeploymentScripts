@@ -5,4 +5,4 @@ pip install celery==4.2.2
 sudo apt-get -y install libmysqlclient-dev
 pip install mysqlclient==1.4.2
 
-pip install azure==4.0.0
+pip install Flask==1.0.4
